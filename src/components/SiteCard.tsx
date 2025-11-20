@@ -4,7 +4,7 @@ import { Site } from '../API/http';
 import SiteSettingsModal from './SiteSettingsModal';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-// 引入Material UI组件
+// 引入Material UI元件
 import {
   Card,
   CardContent,
@@ -24,17 +24,17 @@ interface SiteCardProps {
   onDelete: (siteId: number) => void;
   isEditMode?: boolean;
   index?: number;
-  iconApi?: string; // 添加iconApi属性
+  iconApi?: string; // 新增iconApi屬性
 }
 
-// 使用memo包装组件以减少不必要的重渲染
+// 使用memo包裝元件以減少不必要的重渲染
 const SiteCard = memo(function SiteCard({
   site,
   onUpdate,
   onDelete,
   isEditMode = false,
   index = 0,
-  iconApi, // 添加iconApi参数
+  iconApi, // 新增iconApi參數
 }: SiteCardProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [iconError, setIconError] = useState(!site.icon);
@@ -54,39 +54,39 @@ const SiteCard = memo(function SiteCard({
     position: 'relative' as const,
   };
 
-  // 如果没有图标，使用首字母作为图标
+  // 如果沒有圖示，使用首字母作為圖示
   const fallbackIcon = site.name.charAt(0).toUpperCase();
 
-  // 处理设置按钮点击
+  // 處理設定按鈕點選
   const handleSettingsClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 阻止卡片点击事件
-    e.preventDefault(); // 防止默认行为
+    e.stopPropagation(); // 阻止卡片點選事件
+    e.preventDefault(); // 防止預設行為
     setShowSettings(true);
   };
 
-  // 处理关闭设置
+  // 處理關閉設定
   const handleCloseSettings = () => {
     setShowSettings(false);
   };
 
-  // 处理卡片点击
+  // 處理卡片點選
   const handleCardClick = () => {
     if (!isEditMode && site.url) {
       window.open(site.url, '_blank');
     }
   };
 
-  // 处理图标加载错误
+  // 處理圖示載入錯誤
   const handleIconError = () => {
     setIconError(true);
   };
 
-  // 处理图片加载完成
+  // 處理圖片載入完成
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
 
-  // 卡片内容
+  // 卡片內容
   const cardContent = (
     <Box
       sx={{
@@ -134,7 +134,7 @@ const SiteCard = memo(function SiteCard({
             <Box position='absolute' top={8} right={8}>
               <DragIndicatorIcon fontSize='small' color='primary' />
             </Box>
-            {/* 图标和名称 */}
+            {/* 圖示和名稱 */}
             <Box display='flex' alignItems='center' mb={1}>
               {!iconError && site.icon ? (
                 <Box position='relative' mr={1.5} width={32} height={32} flexShrink={0}>
@@ -208,7 +208,7 @@ const SiteCard = memo(function SiteCard({
                 fontSize: { xs: '0.75rem', sm: '0.875rem' },
               }}
             >
-              {site.description || '暂无描述'}
+              {site.description || '暫無描述'}
             </Typography>
           </Box>
         ) : (
@@ -223,7 +223,7 @@ const SiteCard = memo(function SiteCard({
                 '&:last-child': { pb: { xs: 1.5, sm: 2 } },
               }}
             >
-              {/* 图标和名称 */}
+              {/* 圖示和名稱 */}
               <Box display='flex' alignItems='center' mb={1}>
                 {!iconError && site.icon ? (
                   <Box position='relative' mr={1.5} width={32} height={32} flexShrink={0}>
@@ -297,10 +297,10 @@ const SiteCard = memo(function SiteCard({
                   fontSize: { xs: '0.75rem', sm: '0.875rem' },
                 }}
               >
-                {site.description || '暂无描述'}
+                {site.description || '暫無描述'}
               </Typography>
 
-              {/* 设置按钮 */}
+              {/* 設定按鈕 */}
               <IconButton
                 size='small'
                 sx={{
@@ -318,7 +318,7 @@ const SiteCard = memo(function SiteCard({
                   },
                 }}
                 onClick={handleSettingsClick}
-                aria-label='网站设置'
+                aria-label='網站設定'
               >
                 <SettingsIcon fontSize='small' />
               </IconButton>
@@ -342,7 +342,7 @@ const SiteCard = memo(function SiteCard({
             onUpdate={onUpdate}
             onDelete={onDelete}
             onClose={handleCloseSettings}
-            iconApi={iconApi} // 传递iconApi给SiteSettingsModal
+            iconApi={iconApi} // 傳遞iconApi給SiteSettingsModal
           />
         )}
       </>
@@ -359,7 +359,7 @@ const SiteCard = memo(function SiteCard({
           onUpdate={onUpdate}
           onDelete={onDelete}
           onClose={handleCloseSettings}
-          iconApi={iconApi} // 传递iconApi给SiteSettingsModal
+          iconApi={iconApi} // 傳遞iconApi給SiteSettingsModal
         />
       )}
     </>
