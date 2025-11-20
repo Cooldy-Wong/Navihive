@@ -30,12 +30,12 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
   const [name, setName] = useState('');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  // 当弹窗打开时，初始化名称
+  // 當彈窗打開時，初始化名稱
   React.useEffect(() => {
     if (group) {
       setName(group.name);
     }
-    // 关闭删除确认状态
+    // 關閉刪除確認狀態
     setShowDeleteConfirm(false);
   }, [group, open]);
 
@@ -52,10 +52,10 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
     if (!group) return;
 
     if (!showDeleteConfirm) {
-      // 显示删除确认
+      // 顯示刪除確認
       setShowDeleteConfirm(true);
     } else {
-      // 确认删除
+      // 確認刪除
       onDelete(group.id!);
     }
   };
@@ -64,11 +64,11 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
-      <DialogTitle>编辑分组</DialogTitle>
+      <DialogTitle>編輯分組</DialogTitle>
       <DialogContent>
         <Box sx={{ mb: 2, mt: 1 }}>
           <TextField
-            label='分组名称'
+            label='分組名稱'
             fullWidth
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -80,9 +80,9 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
         {showDeleteConfirm && (
           <Alert severity='warning' sx={{ mt: 2 }}>
             <Typography variant='body2'>
-              确定要删除分组 "{group.name}" 吗？
-              <strong>删除此分组将同时删除该分组下的所有网站。</strong>
-              此操作无法撤销。
+              確定要刪除分組 "{group.name}" 嗎？
+              <strong>刪除此分組將同時刪除該分組下的所有網站。</strong>
+              此操作無法撤銷。
             </Typography>
           </Alert>
         )}
@@ -94,7 +94,7 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
               取消
             </Button>
             <Button onClick={handleDelete} color='error' variant='outlined'>
-              删除
+              刪除
             </Button>
             <Button
               onClick={handleSave}
@@ -102,7 +102,7 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
               variant='contained'
               disabled={!name.trim()}
             >
-              保存
+              儲存
             </Button>
           </>
         ) : (
@@ -111,7 +111,7 @@ const EditGroupDialog: React.FC<EditGroupDialogProps> = ({
               取消
             </Button>
             <Button onClick={handleDelete} color='error' variant='contained'>
-              确认删除
+              確認刪除
             </Button>
           </>
         )}
