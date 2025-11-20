@@ -10,11 +10,11 @@ interface ThemeToggleProps {
 
 export default function ThemeToggle({ darkMode, onToggle }: ThemeToggleProps) {
   return (
-    <Tooltip title={darkMode ? '切换到浅色模式' : '切换到深色模式'}>
+    <Tooltip title={darkMode ? '切換到淺色模式' : '切換到深色模式'}>
       <IconButton
         onClick={onToggle}
         color='inherit'
-        aria-label='切换主题'
+        aria-label='切換主題'
         sx={{
           p: 1.5,
           borderRadius: '50%',
