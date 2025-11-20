@@ -17,14 +17,14 @@
     "d1_databases": [
         {
             "binding": "DB",
-            "database_name": "navigation-db-local",
+            "database_name": "navigation",
             "database_id": "950dab1d-f547-4d08-a9f1-552161bfdb36"
         }
     ],
     "vars": {
         "AUTH_ENABLED": "true",
-        "AUTH_USERNAME": "linuxdo",
-        "AUTH_PASSWORD": "linuxdo",
-        "AUTH_SECRET": "linuxdo"
+        "AUTH_USERNAME": "Cooldy",
+        "AUTH_PASSWORD": "Cooldy19791229",
+        "AUTH_SECRET": "Cooldy19791229"
     }
 }
