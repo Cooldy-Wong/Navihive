@@ -1,7 +1,7 @@
 // src/components/SiteSettingsModal.tsx
 import { useState } from 'react';
 import { Site, Group } from '../API/http';
-// Material UI 导入
+// Material UI 匯入
 import {
   Dialog,
   DialogTitle,
@@ -34,16 +34,16 @@ interface SiteSettingsModalProps {
   onUpdate: (updatedSite: Site) => void;
   onDelete: (siteId: number) => void;
   onClose: () => void;
-  groups?: Group[]; // 可选的分组列表
-  iconApi?: string; // 图标API配置
+  groups?: Group[]; // 可選的分組列表
+  iconApi?: string; // 圖示API配置
 }
 
-// 辅助函数：提取域名
+// 輔助函式：提取域名
 function extractDomain(url: string): string | null {
   if (!url) return null;
 
   try {
-    // 尝试自动添加协议头，如果缺少的话
+    // 嘗試自動新增協議頭，如果缺少的話
     let fullUrl = url;
     if (!/^https?:\/\//i.test(url)) {
       fullUrl = 'http://' + url;
@@ -51,7 +51,7 @@ function extractDomain(url: string): string | null {
     const parsedUrl = new URL(fullUrl);
     return parsedUrl.hostname;
   } catch (e) {
-    // 尝试备用方法
+    // 嘗試備用方法
     const match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/im);
     return match && match[1] ? match[1] : url;
   }
@@ -67,7 +67,7 @@ export default function SiteSettingsModal({
 }: SiteSettingsModalProps) {
   const theme = useTheme();
 
-  // 存储字符串形式的group_id，与Material-UI的Select兼容
+  // 儲存字串形式的group_id，與Material-UI的Select相容
   const [formData, setFormData] = useState({
     name: site.name,
     url: site.url,
@@ -77,16 +77,16 @@ export default function SiteSettingsModal({
     group_id: String(site.group_id),
   });
 
-  // 用于预览图标
+  // 用於預覽圖示
   const [iconPreview, setIconPreview] = useState<string | null>(site.icon || null);
 
-  // 处理表单字段变化
+  // 處理表單欄位變化
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 处理下拉列表变化
+  // 處理下拉選單變化
   const handleSelectChange = (e: SelectChangeEvent) => {
     setFormData((prev) => ({
       ...prev,
@@ -94,17 +94,17 @@ export default function SiteSettingsModal({
     }));
   };
 
-  // 处理图标上传或URL输入
+  // 處理圖示上傳或URL輸入
   const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setFormData((prev) => ({ ...prev, icon: value }));
 
-    // 检查URL是否是有效的图片URL
+    // 檢查URL是否是有效的圖片URL
     const isValidImageUrl = (url: string): boolean => {
-      // 检查URL格式
+      // 檢查URL格式
       try {
         new URL(url);
-        // 检查是否是常见图片格式
+        // 檢查是否是常見圖片格式
         return (
           /\.(jpeg|jpg|gif|png|svg|webp|ico)(\?.*)?$/i.test(url) ||
           /^https?:\/\/.*\/favicon\.(ico|png)(\?.*)?$/i.test(url) ||
@@ -115,7 +115,7 @@ export default function SiteSettingsModal({
       }
     };
 
-    // 仅当输入看起来像有效的图片URL时才设置预览
+    // 僅當輸入看起來像有效的圖片URL時才設定預覽
     if (value && isValidImageUrl(value)) {
       setIconPreview(value);
     } else {
@@ -123,17 +123,17 @@ export default function SiteSettingsModal({
     }
   };
 
-  // 处理图标加载错误
+  // 處理圖示載入錯誤
   const handleIconError = () => {
     setIconPreview(null);
   };
 
-  // 提交表单
+  // 提交表單
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 更新网站信息，将group_id转为数字
+    // 更新網站資訊，將group_id轉為數字
     onUpdate({
       ...site,
       ...formData,
@@ -143,16 +143,16 @@ export default function SiteSettingsModal({
     onClose();
   };
 
-  // 确认删除
+  // 確認刪除
   const confirmDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (window.confirm('确定要删除这个网站吗？此操作不可恢复。')) {
+    if (window.confirm('確定要刪除這個網站嗎？此操作不可恢復。')) {
       onDelete(site.id!);
       onClose();
     }
   };
 
-  // 计算首字母图标
+  // 計算首字母圖示
   const fallbackIcon = formData.name?.charAt(0).toUpperCase() || 'A';
 
   return (
@@ -178,9 +178,9 @@ export default function SiteSettingsModal({
         }}
       >
         <Typography variant='h6' component='div' fontWeight='600'>
-          网站设置
+          網站設定
         </Typography>
-        <IconButton edge='end' color='inherit' onClick={onClose} aria-label='关闭' size='small'>
+        <IconButton edge='end' color='inherit' onClick={onClose} aria-label='關閉' size='small'>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -190,25 +190,25 @@ export default function SiteSettingsModal({
       <form onSubmit={handleSubmit}>
         <DialogContent sx={{ pt: 2 }}>
           <Stack spacing={2.5}>
-            {/* 网站名称 */}
+            {/* 網站名稱 */}
             <TextField
               id='name'
               name='name'
-              label='网站名称'
+              label='網站名稱'
               required
               fullWidth
               value={formData.name || ''}
               onChange={handleChange}
-              placeholder='输入网站名称'
+              placeholder='輸入網站名稱'
               variant='outlined'
               size='small'
             />
 
-            {/* 网站链接 */}
+            {/* 網站鏈接 */}
             <TextField
               id='url'
               name='url'
-              label='网站链接'
+              label='網站鏈接'
               required
               fullWidth
               value={formData.url || ''}
@@ -219,10 +219,10 @@ export default function SiteSettingsModal({
               type='url'
             />
 
-            {/* 网站图标 */}
+            {/* 網站圖示 */}
             <Box>
               <Typography variant='body2' color='text.secondary' gutterBottom>
-                图标 URL
+                圖示 URL
               </Typography>
               <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
                 {iconPreview ? (
@@ -268,7 +268,7 @@ export default function SiteSettingsModal({
                         <IconButton
                           onClick={() => {
                             if (!formData.url) {
-                              // handleError("请先输入站点URL");
+                              // handleError("請先輸入站點URL");
                               return;
                             }
                             const domain = extractDomain(formData.url);
@@ -283,11 +283,11 @@ export default function SiteSettingsModal({
                               }));
                               setIconPreview(iconUrl);
                             } else {
-                              // handleError("无法从URL中获取域名");
+                              // handleError("無法從URL中獲取域名");
                             }
                           }}
                           edge='end'
-                          title='自动获取图标'
+                          title='自動獲取圖示'
                         >
                           <AutoFixHighIcon />
                         </IconButton>
@@ -298,16 +298,16 @@ export default function SiteSettingsModal({
               </Box>
             </Box>
 
-            {/* 分组选择 */}
+            {/* 分組選擇 */}
             {groups.length > 0 && (
               <FormControl fullWidth size='small'>
-                <InputLabel id='group-select-label'>所属分组</InputLabel>
+                <InputLabel id='group-select-label'>所屬分組</InputLabel>
                 <Select
                   labelId='group-select-label'
                   id='group_id'
                   name='group_id'
                   value={formData.group_id}
-                  label='所属分组'
+                  label='所屬分組'
                   onChange={handleSelectChange}
                 >
                   {groups.map((group) => (
@@ -319,32 +319,32 @@ export default function SiteSettingsModal({
               </FormControl>
             )}
 
-            {/* 网站描述 */}
+            {/* 網站描述 */}
             <TextField
               id='description'
               name='description'
-              label='网站描述'
+              label='網站描述'
               multiline
               rows={2}
               fullWidth
               value={formData.description || ''}
               onChange={handleChange}
-              placeholder='简短的网站描述'
+              placeholder='簡短的網站描述'
               variant='outlined'
               size='small'
             />
 
-            {/* 备注 */}
+            {/* 備註 */}
             <TextField
               id='notes'
               name='notes'
-              label='备注'
+              label='備註'
               multiline
               rows={3}
               fullWidth
               value={formData.notes || ''}
               onChange={handleChange}
-              placeholder='可选的私人备注'
+              placeholder='可選的私人備註'
               variant='outlined'
               size='small'
             />
@@ -358,7 +358,7 @@ export default function SiteSettingsModal({
             variant='contained'
             startIcon={<DeleteIcon />}
           >
-            删除
+            刪除
           </Button>
 
           <Box>
@@ -372,7 +372,7 @@ export default function SiteSettingsModal({
               取消
             </Button>
             <Button type='submit' color='primary' variant='contained' startIcon={<SaveIcon />}>
-              保存
+              儲存
             </Button>
           </Box>
         </DialogActions>
