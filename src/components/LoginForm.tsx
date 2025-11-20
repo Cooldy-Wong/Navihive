@@ -79,7 +79,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loading = false, error =
             <LockOutlinedIcon fontSize='large' />
           </Box>
           <Typography component='h1' variant='h5' fontWeight='bold' textAlign='center'>
-            导航站登录
+            導航站登錄
           </Typography>
         </Box>
 
@@ -95,7 +95,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loading = false, error =
             required
             fullWidth
             id='username'
-            label='用户名'
+            label='使用者名稱'
             name='username'
             autoComplete='username'
             autoFocus
@@ -109,7 +109,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loading = false, error =
             required
             fullWidth
             name='password'
-            label='密码'
+            label='密碼'
             type='password'
             id='password'
             autoComplete='current-password'
@@ -128,7 +128,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loading = false, error =
                 disabled={loading}
               />
             }
-            label='记住我（一个月内免登录）'
+            label='記住我（一個月內免登錄）'
             sx={{ mb: 2 }}
           />
           <Button
@@ -145,7 +145,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loading = false, error =
               borderRadius: 2,
             }}
           >
-            {loading ? <CircularProgress size={24} color='inherit' /> : '登录'}
+            {loading ? <CircularProgress size={24} color='inherit' /> : '登錄'}
           </Button>
         </Box>
       </Paper>
